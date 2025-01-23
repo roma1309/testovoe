@@ -6,5 +6,3 @@ postgresql - database
 
 блок схема в файле блок схема.jpg
 
-
-### Program Images
