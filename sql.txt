@@ -1,0 +1,81 @@
+CREATE TABLE authors
+(
+    Id SERIAL PRIMARY KEY,
+    name CHARACTER VARYING(100),
+    birthdate date
+);
+
+CREATE TABLE Books
+(
+    Id SERIAL PRIMARY KEY,
+    title CHARACTER VARYING(150),
+	author_id SERIAL,
+	price decimal(10,2),
+    publication_date date,
+	FOREIGN KEY (author_id) REFERENCES authors (Id)
+);
+
+CREATE TABLE orders
+(
+    Id SERIAL PRIMARY KEY,
+	book_id SERIAL,
+	quantity integer,
+    order_date date,
+	FOREIGN KEY (book_id) REFERENCES books (Id)
+);
+
+INSERT INTO authors VALUES (1, 'Пушкин', '1905-12-01 09:00:00'),
+ (2, 'Колас', '1019-12-01 09:00:00'),
+ (3, 'Лермонтов', '1653-12-01 09:00:00'),
+ (4, 'Булгаков', '1234-12-01 09:00:00'),
+ (5, 'Достоевский', '1555-12-01 09:00:00'),
+ (6, 'Толстой', '1666-12-01 09:00:00'),
+ (7, 'Набоков', '1777-12-01 09:00:00')
+
+
+INSERT INTO books VALUES (1, 'name1',1, 123, '2024-12-01 09:00:00'),
+ (2, 'name2', 1, 433, '2019-12-01 09:00:00'),
+ (3, 'name3', 3, 234, '2001-12-01 09:00:00'),
+ (4, 'name4', 4, 12, '2022-12-01 09:00:00'),
+ (5, 'name5',3, 123, '2021-12-01 09:00:00'),
+ (6, 'name6', 5,3432, '2015-12-01 09:00:00'),
+ (7, 'name7', 6, 22222, '2011-12-01 09:00:00'),
+ (8, 'name8', 7, 12, '2011-12-01 09:00:00'),
+ (9, 'name9', 4, 69, '2011-12-01 09:00:00'),
+ (10, 'name10', 2, 55, '2011-12-01 09:00:00')
+
+INSERT INTO orders VALUES (1, 1, 5, '2024-04-01 09:00:00'),
+ (2,  1, 6, '2019-12-11 09:00:00'),
+ (3,  4, 12, '2001-10-01 09:00:00'),
+ (4,  4, 15, '2022-12-01 09:00:00'),
+ (5, 3, 3, '2021-12-01 09:00:00'),
+ (6,  3, 44, '2015-12-01 09:00:00'),
+ (7,  5, 77, '2011-12-01 09:00:00'),
+ (8,  5, 33, '2011-11-24 09:00:00'),
+ (9,  4, 1, '2011-12-16 09:00:00'),
+ (10, 2, 55, '2024-02-11 09:00:00')
+
+
+-------------------
+SELECT authors.name, books.id, books.title, 
+books.author_id, books.price, books.publication_date
+FROM books
+    Left JOIN authors on books.author_id = authors.id
+--------------------
+
+SELECT *
+FROM books
+    where publication_date > '2020-01-01'
+------------------------------------------
+
+SELECT SUM(quantity) FROM orders;
+
+--------------------------------
+
+SELECT * FROM books ORDER BY price DESC LIMIT 3
+
+-------------------------------
+
+
+
+
